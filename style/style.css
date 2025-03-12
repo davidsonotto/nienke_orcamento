@@ -1,0 +1,138 @@
+@font-face {
+    font-family: 'SpaceGrotesk';
+    src: url('fonts/Space_Grotesk/SpaceGrotesk-VariableFont_wght.ttf') format('tff')
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'SpaceGrotesk', normal;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #431647; /* Cor do fundo - Inferior esquerdo */
+    margin: 0;
+    color: white;
+}
+
+.logo {
+    margin-bottom: 20px;
+    max-width: 120px; /* Redimensionado para ficar proporcional e pequeno */
+    display: block;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.container {
+    background: #663566; /* Cor da caixa do formulário - Superior esquerdo */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin-top: 100px; /* Ajuste para evitar sobreposição com a logo */
+}
+
+.question {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+    width: 100%;
+    text-align: left;
+}
+
+.question.active {
+    display: block;
+}
+
+p {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+input, textarea, select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-align: left;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px;
+    width: 100%;
+}
+
+.checkbox-group input[type="checkbox"],
+.checkbox-group input[type="radio"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+}
+
+.checkbox-group .input-other {
+    margin-left: 10px;
+    padding: 5px;
+    font-size: 14px;
+    width: 60%;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    display: none; /* Inicialmente oculto */
+}
+
+.checkbox-group label input[type="checkbox"]:checked ~ .input-other,
+.checkbox-group label input[type="radio"]:checked ~ .input-other {
+    display: inline-block; /* Exibe quando marcado */
+}
+
+.checkbox-group .input-other::placeholder {
+    color: #ddd; /* Ajuste da cor do placeholder para maior legibilidade */
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 0;
+    background-color: #F3827C; /* Cor dos botões - Inferior centro */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 100%;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #D96A66;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

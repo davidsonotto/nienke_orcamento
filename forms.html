@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário Interativo</title>
+    <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+    <img src="images/NIENKE-ARQUITETURA_LOGO-PNG3.png" alt="Logo" class="logo">
+    <div class="container">
+        <form id="form" onsubmit="validateForm(event)">
+            <div class="question active" id="q1">
+                <p>Seu nome:</p>
+                <input type="text" name="nome" required>
+                <button type="button" onclick="nextQuestion(1)">Próximo</button>
+            </div>
+            
+            <div class="question" id="q2">
+                <p>Seu e-mail:</p>
+                <input type="email" name="email" required>
+                <button type="button" onclick="nextQuestion(2)">Próximo</button>
+            </div>
+            
+            <div class="question" id="q3">
+                <p>Número de telefone:</p>
+                <input type="tel" name="telefone" required pattern="\d{10,11}" title="Digite um telefone válido (apenas números, com 10 ou 11 dígitos)">
+                <button type="button" onclick="nextQuestion(3)">Próximo</button>
+            </div>
+
+
+            <div class="question" id="q4">
+                <p>Qual o tipo do seu projeto?</p>
+                <div class="checkbox-group">
+                    <label><input type="radio" name="tipo_projeto" value="Residencial"> Residencial</label>
+                    <label><input type="radio" name="tipo_projeto" value="Comercial"> Comercial</label>
+                    <label><input type="radio" name="tipo_projeto" value="Corporativo"> Corporativo</label>
+                    <label class="other-option">
+                        <input type="radio" name="tipo_projeto" value="Outro" onchange="toggleOtherInput(this, 'tipo_projeto_outro')"> Outro
+                        <input type="text" name="tipo_projeto_outro" id="tipo_projeto_outro" class="input-other" placeholder="Especifique">
+                    </label>
+                </div>
+                <button type="button" onclick="nextQuestion(4)">Próximo</button>
+            </div>
+
+            <div class="question" id="q5">
+                <p>Qual tipo da sua obra?</p>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="tipo_obra" value="Construção/Arquitetônico"> Construção/Arquitetônico</label>
+                    <label><input type="checkbox" name="tipo_obra" value="Interiores"> Interiores</label>
+                    <label><input type="checkbox" name="tipo_obra" value="Reforma"> Reforma</label>
+                    <label class="other-option">
+                        <input type="checkbox" name="tipo_obra" value="Outro" onchange="toggleOtherInput(this, 'tipo_obra_outro')"> Outro
+                        <input type="text" name="tipo_obra_outro" id="tipo_obra_outro" class="input-other" placeholder="Especifique">
+                    </label>
+                </div>
+                <button type="button" onclick="nextQuestion(5)">Próximo</button>
+            </div>
+
+            <div class="question" id="q6">
+                <p>Você já teve experiência com outros arquitetos?</p>
+                <div class="checkbox-group">
+                    <label><input type="radio" name="experiencia_arquitetos" value="Sim"> Sim</label>
+                    <label><input type="radio" name="experiencia_arquitetos" value="Não"> Não</label>
+                </div>
+                <button type="button" onclick="nextQuestion(6)">Próximo</button>
+            </div>
+
+            <div class="question" id="q7">
+                <p>Você tem um orçamento definido para sua obra? Se sim, qual?</p>
+                <div class="checkbox-group">
+                    <label><input type="radio" name="orcamento" value="Não"> Não</label>
+                    <label><input type="radio" name="orcamento" value="Até 50 mil"> Até 50 mil</label>
+                    <label><input type="radio" name="orcamento" value="De 50 a 150 mil"> De 50 a 150 mil</label>
+                    <label><input type="radio" name="orcamento" value="De 150 a 300 mil"> De 150 a 300 mil</label>
+                    <label><input type="radio" name="orcamento" value="De 300 a 500 mil"> De 300 a 500 mil</label>
+                    <label><input type="radio" name="orcamento" value="Acima de 500 mil"> Acima de 500 mil</label>
+                    <label class="other-option">
+                        <input type="radio" name="orcamento" value="Outro" onchange="toggleOtherInput(this, 'orcamento_outro')"> Outro
+                        <input type="text" name="orcamento_outro" id="orcamento_outro" class="input-other" placeholder="Especifique">
+                    </label>
+                </div>
+                <button type="button" onclick="nextQuestion(7)">Próximo</button>
+            </div>
+
+            <div class="question" id="q8">
+                <p>Qual o prazo de início do seu projeto?</p>
+                <div class="checkbox-group">
+                    <label><input type="radio" name="prazo_inicio" value="Em até 1 mês"> Em até 1 mês</label>
+                    <label><input type="radio" name="prazo_inicio" value="De 1 a 3 meses"> De 1 a 3 meses</label>
+                    <label><input type="radio" name="prazo_inicio" value="Acima de 3 meses"> Acima de 3 meses</label>
+                </div>
+                <button type="button" onclick="nextQuestion(8)">Próximo</button>
+            </div>
+
+            <div class="question" id="q9">
+                <p>Onde conheceu a Nienke?</p>
+                <div class="checkbox-group">
+                    <label><input type="radio" name="conhecimento" value="Google"> Google</label>
+                    <label><input type="radio" name="conhecimento" value="Instagram"> Instagram</label>
+                    <label><input type="radio" name="conhecimento" value="Indicação"> Indicação</label>
+                    <label class="other-option">
+                        <input type="radio" name="conhecimento" value="Outro" onchange="toggleOtherInput(this, 'conhecimento_outro')"> Outro
+                        <input type="text" name="conhecimento_outro" id="conhecimento_outro" class="input-other" placeholder="Especifique">
+                    </label>
+                </div>
+                <button type="submit">Enviar</button>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+     function nextQuestion(n) {
+            const currentQuestion = document.getElementById(`q${n}`);
+            const inputs = currentQuestion.querySelectorAll("input[required], input[type='radio'], input[type='checkbox']");
+            let isValid = false;
+            
+            inputs.forEach(input => {
+                if ((input.type === "radio" || input.type === "checkbox") && input.checked) {
+                    isValid = true;
+                } else if (input.type !== "radio" && input.type !== "checkbox" && input.value.trim()) {
+                    isValid = true;
+                }
+            });
+            
+            if (!isValid) {
+                alert("Por favor, preencha todos os campos obrigatórios antes de continuar.");
+                return;
+            }
+            
+            if (n === 2) {
+                let email = document.querySelector("[name='email']").value;
+                let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    alert("Por favor, insira um e-mail válido.");
+                    return;
+                }
+            }
+            
+            if (n === 3) {
+                let telefone = document.querySelector("[name='telefone']").value;
+                let telefoneRegex = /^\d{10,11}$/;
+                if (!telefoneRegex.test(telefone)) {
+                    alert("Por favor, insira um telefone válido (10 ou 11 dígitos, apenas números).");
+                    return;
+                }
+            }
+            
+            currentQuestion.classList.remove('active');
+            document.getElementById(`q${n+1}`).classList.add('active');
+        }
+        
+        function toggleOtherInput(checkbox, inputId) {
+            const input = document.getElementById(inputId);
+            input.style.display = checkbox.checked ? 'inline-block' : 'none';
+            if (!checkbox.checked) {
+                input.value = "";
+            }
+        }
+        
+        function validateForm(event) {
+            event.preventDefault();
+            
+            let email = document.querySelector("[name='email']").value;
+            let telefone = document.querySelector("[name='telefone']").value;
+            
+            let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            let telefoneRegex = /^\d{10,11}$/;
+            
+            if (!emailRegex.test(email)) {
+                alert("Por favor, insira um e-mail válido.");
+                return;
+            }
+            
+            if (!telefoneRegex.test(telefone)) {
+                alert("Por favor, insira um telefone válido (10 ou 11 dígitos, apenas números).");
+                return;
+            }
+            
+            alert("Formulário enviado com sucesso!");
+            document.getElementById("form").submit();
+        }
+
+        document.getElementById("form").addEventListener("submit", function(event) {
+            event.preventDefault();
+	
+	
+        // Exibir todas as perguntas antes da submissão
+        document.querySelectorAll(".question").forEach(q => q.classList.add("active"));
+
+
+	let formData = {
+    nome: document.querySelector("[name='nome']")?.value || "",
+    email: document.querySelector("[name='email']")?.value || "",
+    telefone: document.querySelector("[name='telefone']")?.value || "",
+    tipo_projeto: document.querySelector("[name='tipo_projeto']:checked")?.value === "Outro"
+        ? document.querySelector("[name='tipo_projeto_outro']")?.value || "Outro"
+        : document.querySelector("[name='tipo_projeto']:checked")?.value || "",
+    tipo_obra: Array.from(document.querySelectorAll("[name='tipo_obra']:checked")).map(cb => 
+        cb.value === "Outro" ? (document.querySelector("[name='tipo_obra_outro']")?.value || "Outro") : cb.value
+    ).join(", ") || "",
+    experiencia_arquitetos: document.querySelector("[name='experiencia_arquitetos']:checked")?.value || "",
+    orcamento: document.querySelector("[name='orcamento']:checked")?.value === "Outro"
+        ? document.querySelector("[name='orcamento_outro']")?.value || "Outro"
+        : document.querySelector("[name='orcamento']:checked")?.value || "",
+    prazo_inicio: document.querySelector("[name='prazo_inicio']:checked")?.value || "",
+    conhecimento: document.querySelector("[name='conhecimento']:checked")?.value === "Outro"
+        ? document.querySelector("[name='conhecimento_outro']")?.value || "Outro"
+        : document.querySelector("[name='conhecimento']:checked")?.value || ""
+};
+
+
+
+            fetch("https://script.google.com/macros/s/AKfycby5dk6FU3xbr6SkFKqB2GlEORU5lasx7QaOID4tyqKlCqehiVPnRUlF7DA9sjQB8D2o/exec", {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            }).then(() => {
+                alert("Dados enviados com sucesso!");
+                document.getElementById("form").reset();
+            }).catch(error => console.error("Erro ao enviar os dados:", error));
+        });
+    </script>
+</body>
+</html>
