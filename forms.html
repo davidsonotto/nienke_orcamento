@@ -110,23 +110,41 @@
     </div>
     
     <script>
-     function nextQuestion(n) {
-            const currentQuestion = document.getElementById(`q${n}`);
-            const inputs = currentQuestion.querySelectorAll("input[required], input[type='radio'], input[type='checkbox']");
-            let isValid = false;
+    
+        function showThankYouMessage() {
+                document.body.innerHTML = `<div class='thank-you'>
+                    <h2>Obrigado por preencher o formulário!</h2>
+                    <p>Logo entraremos em contato com você.</p>
+                </div>`;
+                setTimeout(() => {
+                    window.location.href = "https://api.whatsapp.com/send/?phone=5531998459713&text=Oi%2C+preenchi+o+formul%C3%A1rio+de+or%C3%A7amento+e+queria+saber+mais+sobre+a+Nienke+Arquitetura.&type=phone_number&app_absent=0";
+                }, 3000);
+            }
             
-            inputs.forEach(input => {
-                if ((input.type === "radio" || input.type === "checkbox") && input.checked) {
-                    isValid = true;
-                } else if (input.type !== "radio" && input.type !== "checkbox" && input.value.trim()) {
-                    isValid = true;
-                }
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("form").addEventListener("submit", function(event) {
+                    event.preventDefault();
+                    showThankYouMessage();
+                });
             });
             
-            if (!isValid) {
-                alert("Por favor, preencha todos os campos obrigatórios antes de continuar.");
-                return;
-            }
+        function nextQuestion(n) {
+                const currentQuestion = document.getElementById(`q${n}`);
+                const inputs = currentQuestion.querySelectorAll("input[required], input[type='radio'], input[type='checkbox']");
+                let isValid = false;
+                
+                inputs.forEach(input => {
+                    if ((input.type === "radio" || input.type === "checkbox") && input.checked) {
+                        isValid = true;
+                    } else if (input.type !== "radio" && input.type !== "checkbox" && input.value.trim()) {
+                        isValid = true;
+                    }
+                });
+                
+                if (!isValid) {
+                    alert("Por favor, preencha todos os campos obrigatórios antes de continuar.");
+                    return;
+                }
             
             if (n === 2) {
                 let email = document.querySelector("[name='email']").value;
@@ -157,57 +175,34 @@
                 input.value = "";
             }
         }
-        
-        function validateForm(event) {
-            event.preventDefault();
-            
-            let email = document.querySelector("[name='email']").value;
-            let telefone = document.querySelector("[name='telefone']").value;
-            
-            let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            let telefoneRegex = /^\d{10,11}$/;
-            
-            if (!emailRegex.test(email)) {
-                alert("Por favor, insira um e-mail válido.");
-                return;
-            }
-            
-            if (!telefoneRegex.test(telefone)) {
-                alert("Por favor, insira um telefone válido (10 ou 11 dígitos, apenas números).");
-                return;
-            }
-            
-            alert("Formulário enviado com sucesso!");
-            document.getElementById("form").submit();
-        }
 
         document.getElementById("form").addEventListener("submit", function(event) {
             event.preventDefault();
 	
 	
         // Exibir todas as perguntas antes da submissão
-        document.querySelectorAll(".question").forEach(q => q.classList.add("active"));
+        //document.querySelectorAll(".question").forEach(q => q.classList.add("active"));
 
 
-	let formData = {
-    nome: document.querySelector("[name='nome']")?.value || "",
-    email: document.querySelector("[name='email']")?.value || "",
-    telefone: document.querySelector("[name='telefone']")?.value || "",
-    tipo_projeto: document.querySelector("[name='tipo_projeto']:checked")?.value === "Outro"
-        ? document.querySelector("[name='tipo_projeto_outro']")?.value || "Outro"
-        : document.querySelector("[name='tipo_projeto']:checked")?.value || "",
-    tipo_obra: Array.from(document.querySelectorAll("[name='tipo_obra']:checked")).map(cb => 
-        cb.value === "Outro" ? (document.querySelector("[name='tipo_obra_outro']")?.value || "Outro") : cb.value
-    ).join(", ") || "",
-    experiencia_arquitetos: document.querySelector("[name='experiencia_arquitetos']:checked")?.value || "",
-    orcamento: document.querySelector("[name='orcamento']:checked")?.value === "Outro"
-        ? document.querySelector("[name='orcamento_outro']")?.value || "Outro"
-        : document.querySelector("[name='orcamento']:checked")?.value || "",
-    prazo_inicio: document.querySelector("[name='prazo_inicio']:checked")?.value || "",
-    conhecimento: document.querySelector("[name='conhecimento']:checked")?.value === "Outro"
-        ? document.querySelector("[name='conhecimento_outro']")?.value || "Outro"
-        : document.querySelector("[name='conhecimento']:checked")?.value || ""
-};
+        let formData = {
+            nome: document.querySelector("[name='nome']")?.value || "",
+            email: document.querySelector("[name='email']")?.value || "",
+            telefone: document.querySelector("[name='telefone']")?.value || "",
+            tipo_projeto: document.querySelector("[name='tipo_projeto']:checked")?.value === "Outro"
+                ? document.querySelector("[name='tipo_projeto_outro']")?.value || "Outro"
+                : document.querySelector("[name='tipo_projeto']:checked")?.value || "",
+            tipo_obra: Array.from(document.querySelectorAll("[name='tipo_obra']:checked")).map(cb => 
+                cb.value === "Outro" ? (document.querySelector("[name='tipo_obra_outro']")?.value || "Outro") : cb.value
+            ).join(", ") || "",
+            experiencia_arquitetos: document.querySelector("[name='experiencia_arquitetos']:checked")?.value || "",
+            orcamento: document.querySelector("[name='orcamento']:checked")?.value === "Outro"
+                ? document.querySelector("[name='orcamento_outro']")?.value || "Outro"
+                : document.querySelector("[name='orcamento']:checked")?.value || "",
+            prazo_inicio: document.querySelector("[name='prazo_inicio']:checked")?.value || "",
+            conhecimento: document.querySelector("[name='conhecimento']:checked")?.value === "Outro"
+                ? document.querySelector("[name='conhecimento_outro']")?.value || "Outro"
+                : document.querySelector("[name='conhecimento']:checked")?.value || ""
+        };
 
 
 
