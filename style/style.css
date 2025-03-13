@@ -43,6 +43,7 @@ body {
     position: relative;
     margin-top: 100px;
     min-height: 400px;
+    box-sizing: border-box;
 }
 
 .question {
@@ -166,8 +167,10 @@ button:hover {
 
 @media (max-width: 600px) {
     .container {
-        width: 100%;
+        width: 90%;
+        max-width: 400px;
         padding: 20px;
+        margin: 20px;
     }
 
     .question {
